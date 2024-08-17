@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 body {
     margin: 0;
     display: flex;
@@ -9,7 +17,26 @@ body {
     color: #00ff00;
     font-family: 'Courier New', Courier, monospace;
 }
+h2 
+{
+    font-size: 4em;
+    font-weight: 500;
+    color: #222;
+    letter-spacing: 5px;
+    cursor: pointer;
 
+}
+h2:hover
+{
+    color:#fff;
+    text-shadow: 0 0 10px #fff,
+                 0 0 20px #fff,
+                 0 0 40px #fff,
+                 0 0 80px #fff,
+                 0 0 120px #fff,
+                 0 0 160px #fff,
+
+}
 /* Navigation Bar Styling */
 .navbar {
     width: 100%;
