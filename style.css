@@ -14,11 +14,10 @@ body {
     align-items: center;
     height: 90vh;
     background-color: #000;
-    color: #00ff00;
+    color: #3cff00;
     font-family: 'Courier New', Courier, monospace;
 }
-h2 
-{
+h2 {
     font-size: 3em;
     font-weight: 500;
     color: #252424;
@@ -26,8 +25,7 @@ h2
     cursor: pointer;
 
 }
-h2:hover
-{
+h2:hover{
     color:#fff;
     text-shadow: 0 0 10px #fff,
                  0 0 20px #fff,
@@ -57,12 +55,12 @@ h2:hover
 }
 .navbar:hover{
     width: 100%;
-    transition: all 1s;
+    transition: none;
 }
 .button {
     background-color: transparent;
-    outline: 0 !important;
-    border: 0 !important;
+    outline: 0;
+    border: 0;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -70,43 +68,23 @@ h2:hover
     align-items: center;
     justify-content: center;
     color: #fff;
-    transition: all ease-in-out 0.3s;
+    transition: none;
     cursor: pointer;
     list-style: none;
-    margin: 0;
+    margin: 8px;
     padding: 0;
     display: flex;
     justify-content: center;
   }
   
   .button:hover {
-    transform: translateY(-3px);
+    transform: none;
   }
-  
-  .icon {
-    font-size: 20px;
-  }
-
-.button  {
-    margin: 0 8px;
-}
-
-/* .nav-menu li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
-} */
-
-/* .nav-menu li a:hover {
-    text-decoration: underline;
-    color: #ffcc00; Adds a color change on hover for better UX
-} */
 
 /* Page Header Styling */
 .header {
     text-align: center;
-    margin-top: 100px; /* Adjusted to avoid overlap with navbar */
+    margin-top: 1px; /* Adjusted to avoid overlap with navbar */
     color: #fff;
     font-size: 24px;
 }
@@ -123,6 +101,21 @@ h2:hover
 }
 
 #date {
+    font-size: 30px;
+}
+
+/* World clocks */
+.indian_clock {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#time_india {
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+#date_india {
     font-size: 30px;
 }
 
@@ -159,10 +152,49 @@ h2:hover
 
 /* Additional Global Styling */
 a {
-    color: inherit; /* Ensures links inherit the text color */
+    color: white;   /* Ensures links inherit the text color */
     text-decoration: none;
-}
+    font-size: 18px;
+    transition: color 0.3s ease;
+} */
 
 a:hover {
+    visibility: visible;
     text-decoration: underline;
+    color: #ffcc00; /* Adds a color change on hover for better UX */
+} 
+/* menu popup */
+ .navbar .popup {
+    margin: -25px; 
+    position: absolute;
+    top: 25px;
+    background: #fff;
+    color: black;
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    font-size: 18px;
+    pointer-events: none;
+    transition: all 0.3s;
+    align-items: center;
+    
 }
+  .navbar .popup::before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 6px;
+    background: #fff;
+    top: -3px;
+    left: 14px;
+    transform: translate(280%) rotate(45deg);
+    transition: all ;
+  }
+  .navbar .button:hover .popup{
+    top: 70px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
