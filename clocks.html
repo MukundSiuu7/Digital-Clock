@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clock</title>
+    <title>Team Members</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -95,8 +95,67 @@
     <div class="header">
         <h1>World Clocks</h1>
     </div>
+   <h1> <div id="main-time"></div> </h1>
+   <i><div id="date-info"></div></i>
+    <div id="other-times">
+        <div class="time-box">
+            <strong>Los Angeles:</strong> <span id="los-angeles-time"></span>
+        </div>
+        <div class="time-box">
+            <strong>New York:</strong> <span id="new-york-time"></span>
+        </div>
+        <div class="time-box">
+            <strong>London:</strong> <span id="london-time"></span>
+        </div>
+        <div class="time-box">
+            <strong>Paris:</strong> <span id="paris-time"></span>
+        </div>
+        <div class="time-box">
+            <strong>Beijing:</strong> <span id="beijing-time"></span>
+        </div>
+        <div class="time-box">
+            <strong>Tokyo:</strong> <span id="tokyo-time"></span>
+        </div>
+    </div>
 
+    <script language="javascript">
+      function updateTime() {
+    const now = new Date();
+    const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Asia/Kolkata'
+    };
 
-    <script src="script.js"></script>
+    document.getElementById('main-time').textContent = now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' });
+    document.getElementById('date-info').textContent = now.toLocaleDateString('en-IN', options);
+
+    const cities = [
+        { name: 'Los Angeles', timeZone: 'America/Los_Angeles' },
+        { name: 'New York', timeZone: 'America/New_York' },
+        { name: 'London', timeZone: 'Europe/London' },
+        { name: 'Paris', timeZone: 'Europe/Paris' },
+        { name: 'Beijing', timeZone: 'Asia/Shanghai' },
+        { name: 'Tokyo', timeZone: 'Asia/Tokyo' }
+    ];
+
+    const otherTimes = document.getElementById('other-times');
+    otherTimes.innerHTML = '';
+
+    cities.forEach(city => {
+        const cityTime = now.toLocaleTimeString('en-US', { timeZone: city.timeZone, timeStyle: 'short' });
+        const cityElement = document.createElement('div');
+        cityElement.className = 'time-box';
+        cityElement.innerHTML = `<strong>${city.name}</strong><br>${cityTime}`;
+        otherTimes.appendChild(cityElement);
+    });
+}
+
+updateTime();
+setInterval(updateTime, 1000);
+
+    </script>
 </body>
 </html>
