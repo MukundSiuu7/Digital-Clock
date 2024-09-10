@@ -18,7 +18,7 @@ body {
     font-family: 'Courier New', Courier, monospace;
 }
 h2 {
-    font-size: 3em;
+    font-size: 7em;
     font-weight: 500;
     color: #252424;
     letter-spacing: 5px;
@@ -107,11 +107,11 @@ h2:hover{
 /* World clocks */
 .indian_clock {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 #time_india {
-    font-size: 80px;
+    font-size: 220px;
     margin-bottom: 10px;
 }
 
@@ -198,3 +198,11 @@ a:hover {
     pointer-events: auto;
   }
 
+  .time-box {
+    display: inline-block;
+    margin-right: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: #ff0000;
+  }
+  
