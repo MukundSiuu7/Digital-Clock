@@ -20,7 +20,7 @@ body {
 h2 {
     font-size: 2em;
     font-weight: 500;
-    color: #3cff00;
+    color: #252424;
     letter-spacing: 5px;
     cursor: pointer;
 
@@ -203,6 +203,6 @@ a:hover {
     margin-right: 20px;
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
-    color: #ff0000;
+    color: #00ff00;
   }
   
