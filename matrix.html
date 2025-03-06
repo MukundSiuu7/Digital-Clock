@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Than College Seminar</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: monospace;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop autoplay>
+        <source src="And I Love Her.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function setupCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        setupCanvas();
+        window.addEventListener("resize", setupCanvas);
+
+        const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*";
+        const chars = matrixChars.split("");
+        const messages = ["HELLO", "MUKI", "WELCOME", "P", "75"];
+
+        const fontSize = Math.max(16, canvas.width / 100);
+        const messageFontSize = fontSize + 8;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = new Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < drops.length; i++) {
+                let text = chars[Math.floor(Math.random() * chars.length)];
+                let isMessage = false;
+
+                if (Math.random() < 0.01) {  
+                    text = messages[Math.floor(Math.random() * messages.length)];
+                    isMessage = true;
+                }
+
+                ctx.font = isMessage ? `${messageFontSize}px monospace` : `${fontSize}px monospace`;
+                ctx.fillStyle = isMessage ? "#FF0000" : "#0F0";
+
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        // Play music when user interacts (required for autoplay on some browsers)
+        const bgMusic = document.getElementById("bgMusic");
+
+        function playMusic() {
+            bgMusic.play().catch(error => console.log("Music autoplay blocked:", error));
+            document.removeEventListener("click", playMusic);
+        }
+
+        document.addEventListener("click", playMusic); // Start music on first click
+    </script>
+    
+</body>
+</html>
