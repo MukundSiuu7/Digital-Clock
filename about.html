@@ -3,118 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <title>Space Games</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&q=80') center/cover no-repeat;
+        }
+
+        .game-container {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-title {
+            color: var(--text-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #gameCanvas {
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .control-btn {
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: var(--primary-color);
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        .score-display {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            text-align: center;
+            display: none;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .about-content {
+            color: var(--text-color);
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            line-height: 1.6;
+        }
+
+        .about-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        #muteButton {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
+    <div class="space-background"></div>
+    <div class="stars" id="starsContainer"></div>
+    <button id="muteButton"><i class="fas fa-volume-up"></i></button>
+
     <nav class="navbar">
         <button class="button">
             <a href="index.html">
                 <span class="popup">Home</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 1024 1024"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
-                  ></path>
-                </svg></a>
+                <i class="fas fa-home"></i>
+            </a>
+        </button>
 
-                <button class="button">
-                    <a href="clocks.html">
-                        <span class="popup">Clocks</span>
-                        <svg
-                      class="icon"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-width="2"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                      stroke-linecap="round" 
-                      stroke-linejoin="round">
-                        <circle 
-                        cx="12" 
-                        cy="12" 
-                        r="10">
-                       </circle>
-                        <polyline 
-                        points="12 6 12 12 16 14">
-                    </polyline>
-                </svg></a>
-                </button>
-    
-              </button>
-            </button>
-              <button class="button">
-              <a href="team.html">
-                  <span class="popup">Team</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
-                  ></path>
-                </svg></a>
-              </button>
-    
-              <button class="button">
-                <a href="about.html">
-                    <span class="popup">About</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                  stroke-linecap="round" 
-                  stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="16" x2="12" y2="12"></line>
-                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg></a>
-                  <button class="button">
-                  <a href="matrix.html">
-                      <span class="popup">  ?  </span>
-                    <svg
-                      class="icon"
-                      stroke="white"
-                      fill="currentColor"
-                      stroke-width="2"
-                      width="25px" height="25px" viewBox="0 0 50 50"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M25 39.7l-.6-.5C11.5 28.7 8 25 8 19c0-5 4-9 9-9 4.1 0 6.4 2.3 8 4.1 1.6-1.8 3.9-4.1 8-4.1 5 0 9 4 9 9 0 6-3.5 9.7-16.4 20.2l-.6.5zM17 12c-3.9 0-7 3.1-7 7 0 5.1 3.2 8.5 15 18.1 11.8-9.6 15-13 15-18.1 0-3.9-3.1-7-7-7-3.5 0-5.4 2.1-6.9 3.8L25 17.1l-1.1-1.3C22.4 14.1 20.5 12 17 12z"/>
-                    </svg></a>
-                  </button>
+        <button class="button">
+            <a href="clocks.html">
+                <span class="popup">Clocks</span>
+                <i class="fas fa-clock"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="team.html">
+                <span class="popup">Team</span>
+                <i class="fas fa-users"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="about.html">
+                <span class="popup">About</span>
+                <i class="fas fa-info-circle"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="matrix.html">
+                <span class="popup">Matrix</span>
+                <i class="fas fa-terminal"></i>
+            </a>
+        </button>
     </nav>
-    
-    <div class="header">
-        <h1>About Project</h1>
+
+    <main class="container">
+        <div class="header">
+            <h1>Space UFO Game</h1>
+        </div>
+
+        <div class="game-container">
+            <h2 class="game-title">UFO Helmet Hunter</h2>
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <div class="score-display">Score: <span id="score">0</span></div>
+            <div class="game-controls">
+                <button class="control-btn" id="startButton">Start Game</button>
+                <button class="control-btn" id="restartButton" style="display: none;">Restart</button>
+            </div>
+        </div>
+
+        <div class="about-content">
+            <h2>About the Game</h2>
+            <p>Guide your UFO through space to collect astronaut helmets. Use arrow keys or WASD to move. Don't hit the walls or yourself!</p>
+            <p>The more helmets you collect, the faster your UFO moves. How many can you catch?</p>
+        </div>
+    </main>
+
+    <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <button class="control-btn" onclick="restartGame()">Play Again</button>
     </div>
 
-    <div class="content">
-        <p>- This project is made using HTML, CSS, JAVASCRIPT languages.</p>
-        <p>- Topic: Digital Clock.</p>
-    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('startButton');
+        const restartButton = document.getElementById('restartButton');
+        const muteButton = document.getElementById('muteButton');
+        const scoreElement = document.getElementById('score');
+        const gameOverScreen = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
 
-    <script src="script.js"></script>
+        let snake = [];
+        let food = {};
+        let dx = 10;
+        let dy = 0;
+        let score = 0;
+        let gameLoop;
+        let gameStarted = false;
+        let gameSpeed = 100;
+        
+        const backgroundMusic = new Audio('little-dark-age.mp3');
+        backgroundMusic.loop = true;
+        const collectSound = new Audio('collect.mp3');
+        let isMuted = false;
+
+        const ufoImg = new Image();
+        ufoImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjMDBmZjAwIiBkPSJNMjU2IDMyYzg4LjQgMCAxNjAgNzEuNiAxNjAgMTYwYzAgMi45LS4xIDUuOC0uMyA4LjdDNDU5LjggMjE5LjIgNDk2IDI2OS4zIDQ5NiAzMjhjMCA3MC43LTU3LjMgMTI4LTEyOCAxMjhIMTQ0Yy03MC43IDAtMTI4LTU3LjMtMTI4LTEyOGMwLTU4LjcgMzYuMi0xMDguOCA4MC4zLTEyNy4zYy0uMi0yLjktLjMtNS44LS4zLTguN2MwLTg4LjQgNzEuNi0xNjAgMTYwLTE2MHoiLz48L3N2Zz4=';
+
+        const helmetImg = new Image();
+        helmetImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNMjU2IDQ4QzE0MS4xIDQ4IDQ4IDE0MS4xIDQ4IDI1NnM5My4xIDIwOCAyMDggMjA4IDIwOC05My4xIDIwOC0yMDhTMzcwLjkgNDggMjU2IDQ4em0wIDM3MmMtOTAuNSAwLTE2NC03My41LTE2NC0xNjRzNzMuNS0xNjQgMTY0LTE2NCAxNjQgNzMuNSAxNjQgMTY0LTczLjUgMTY0LTE2NCAxNjR6Ii8+PC9zdmc+';
+
+        function initGame() {
+            snake = [{x: 300, y: 200}];
+            food = generateFood();
+            dx = 10;
+            dy = 0;
+            score = 0;
+            gameSpeed = 100;
+            scoreElement.textContent = score;
+            gameOverScreen.style.display = 'none';
+        }
+
+        function generateFood() {
+            return {
+                x: Math.floor(Math.random() * (canvas.width - 20) / 10) * 10,
+                y: Math.floor(Math.random() * (canvas.height - 20) / 10) * 10
+            };
+        }
+
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(ufoImg, snake[0].x, snake[0].y, 20, 20);
+            ctx.drawImage(helmetImg, food.x, food.y, 20, 20);
+        }
+
+        function moveSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+
+            if (head.x === food.x && head.y === food.y) {
+                if (!isMuted) collectSound.play();
+                score += 10;
+                scoreElement.textContent = score;
+                food = generateFood();
+                gameSpeed = Math.max(50, gameSpeed - 2);
+                clearInterval(gameLoop);
+                gameLoop = setInterval(gameStep, gameSpeed);
+            } else {
+                snake.pop();
+            }
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+            return (
+                head.x < 0 ||
+                head.x >= canvas.width ||
+                head.y < 0 ||
+                head.y >= canvas.height
+            );
+        }
+
+        function gameStep() {
+            if (checkCollision()) {
+                gameOver();
+                return;
+            }
+            moveSnake();
+            drawGame();
+        }
+
+        function gameOver() {
+            clearInterval(gameLoop);
+            gameStarted = false;
+            finalScoreElement.textContent = score;
+            gameOverScreen.style.display = 'block';
+            startButton.style.display = 'none';
+            restartButton.style.display = 'inline-block';
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
+        }
+
+        function startGame() {
+            if (!gameStarted) {
+                initGame();
+                gameStarted = true;
+                gameLoop = setInterval(gameStep, gameSpeed);
+                startButton.style.display = 'none';
+                restartButton.style.display = 'inline-block';
+                if (!isMuted) backgroundMusic.play();
+            }
+        }
+
+        function restartGame() {
+            initGame();
+            gameStarted = true;
+            gameLoop = setInterval(gameStep, gameSpeed);
+            if (!isMuted) backgroundMusic.play();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!gameStarted) return;
+            
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                    if (dy !== 10) { dx = 0; dy = -10; }
+                    break;
+                case 'ArrowDown':
+                case 's':
+                    if (dy !== -10) { dx = 0; dy = 10; }
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                    if (dx !== 10) { dx = -10; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                    if (dx !== -10) { dx = 10; dy = 0; }
+                    break;
+            }
+        });
+
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            muteButton.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+            if (isMuted) {
+                backgroundMusic.pause();
+            } else if (gameStarted) {
+                backgroundMusic.play();
+            }
+        });
+
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', restartGame);
+
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            const starCount = 200;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--twinkle-duration', `${Math.random() * 3 + 2}s`);
+                container.appendChild(star);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            initGame();
+            drawGame();
+        });
+    </script>
 </body>
 </html>
