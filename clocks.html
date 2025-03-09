@@ -3,172 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Clocks</title>
+    <title>Space Clocks</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&q=80') center/cover no-repeat;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+
+        .clock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .clock-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .clock-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .clock-title {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .clock-time {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .clock-date {
+            color: var(--text-color);
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .planet-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--twinkle-duration) ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
+    <div class="space-background"></div>
+    <div class="stars" id="starsContainer"></div>
+
     <nav class="navbar">
         <button class="button">
             <a href="index.html">
                 <span class="popup">Home</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 1024 1024"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"
-                  ></path>
-                </svg></a>
-            </button>
+                <i class="fas fa-home"></i>
+            </a>
+        </button>
 
-            <button class="button">
-                <a href="clocks.html">
-                    <span class="popup">Clocks</span>
-                    <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                  stroke-linecap="round" 
-                  stroke-linejoin="round">
-                    <circle 
-                    cx="12" 
-                    cy="12" 
-                    r="10">
-                   </circle>
-                    <polyline 
-                    points="12 6 12 12 16 14">
-                </polyline>
-            </svg></a>
-            </button>
-            
-              <button class="button">
-              <a href="team.html">
-                  <span class="popup">Team</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 24 24"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"
-                  ></path>
-                </svg></a>
-              </button>
-    
-              <button class="button">
-                <a href="about.html">
-                    <span class="popup">About</span>
-                <svg
-                  class="icon"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                  stroke-linecap="round" 
-                  stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="16" x2="12" y2="12"></line>
-                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg></a>
-                  <button class="button">
-                  <a href="matrix.html">
-                      <span class="popup">  ?  </span>
-                    <svg
-                      class="icon"
-                      stroke="white"
-                      fill="currentColor"
-                      stroke-width="2"
-                      width="25px" height="25px" viewBox="0 0 50 50"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M25 39.7l-.6-.5C11.5 28.7 8 25 8 19c0-5 4-9 9-9 4.1 0 6.4 2.3 8 4.1 1.6-1.8 3.9-4.1 8-4.1 5 0 9 4 9 9 0 6-3.5 9.7-16.4 20.2l-.6.5zM17 12c-3.9 0-7 3.1-7 7 0 5.1 3.2 8.5 15 18.1 11.8-9.6 15-13 15-18.1 0-3.9-3.1-7-7-7-3.5 0-5.4 2.1-6.9 3.8L25 17.1l-1.1-1.3C22.4 14.1 20.5 12 17 12z"/>
-                    </svg></a>
-                  </button>
+        <button class="button">
+            <a href="clocks.html">
+                <span class="popup">Clocks</span>
+                <i class="fas fa-clock"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="team.html">
+                <span class="popup">Team</span>
+                <i class="fas fa-users"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="about.html">
+                <span class="popup">About</span>
+                <i class="fas fa-info-circle"></i>
+            </a>
+        </button>
+
+        <button class="button">
+            <a href="matrix.html">
+                <span class="popup">Matrix</span>
+                <i class="fas fa-terminal"></i>
+            </a>
+        </button>
     </nav>
-    
-    <div class="header">
-        <h1>World Clocks</h1>
-    </div>
-   <h1> <div id="main-time"></div> </h1>
-   <div id="date-info"></div><br/>
-    <div id="other-times">
-        <div class="time-box">
-            <strong>Los Angeles:</strong> <span id="los-angeles-time"></span>
+
+    <main class="container">
+        <div class="header">
+            <h1>Space Clocks</h1>
         </div>
-        <div class="time-box">
-            <strong>New York:</strong> <span id="new-york-time"></span>
+
+        <div class="clock-grid">
+            <div class="clock-card">
+                <i class="fas fa-globe-americas planet-icon"></i>
+                <div class="clock-title">New York</div>
+                <div class="clock-time" id="new-york-time"></div>
+                <div class="clock-date" id="new-york-date"></div>
+            </div>
+
+            <div class="clock-card">
+                <i class="fas fa-globe-europe planet-icon"></i>
+                <div class="clock-title">London</div>
+                <div class="clock-time" id="london-time"></div>
+                <div class="clock-date" id="london-date"></div>
+            </div>
+
+            <div class="clock-card">
+                <i class="fas fa-globe-asia planet-icon"></i>
+                <div class="clock-title">Tokyo</div>
+                <div class="clock-time" id="tokyo-time"></div>
+                <div class="clock-date" id="tokyo-date"></div>
+            </div>
+
+            <div class="clock-card">
+                <i class="fas fa-globe-asia planet-icon"></i>
+                <div class="clock-title">Sydney</div>
+                <div class="clock-time" id="sydney-time"></div>
+                <div class="clock-date" id="sydney-date"></div>
+            </div>
         </div>
-        <div class="time-box">
-            <strong>London:</strong> <span id="london-time"></span>
-        </div>
-        <div class="time-box">
-            <strong>Paris:</strong> <span id="paris-time"></span>
-        </div>
-        <div class="time-box">
-            <strong>Beijing:</strong> <span id="beijing-time"></span>
-        </div>
-        <div class="time-box">
-            <strong>Tokyo:</strong> <span id="tokyo-time"></span>
-        </div>
-    </div>
+    </main>
 
-    <script language="javascript">
-      function updateTime() {
-    const now = new Date();
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'Asia/Kolkata'
-    };
+    <script>
+        // Create twinkling stars
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            const starCount = 200;
 
-    document.getElementById('main-time').textContent = now.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata' });
-    document.getElementById('date-info').textContent = now.toLocaleDateString('en-IN', options);
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random twinkle duration
+                star.style.setProperty('--twinkle-duration', `${Math.random() * 3 + 2}s`);
+                
+                container.appendChild(star);
+            }
+        }
 
-    const cities = [
-        { name: 'Los Angeles', timeZone: 'America/Los_Angeles' },
-        { name: 'New York', timeZone: 'America/New_York' },
-        { name: 'London', timeZone: 'Europe/London' },
-        { name: 'Paris', timeZone: 'Europe/Paris' },
-        { name: 'Beijing', timeZone: 'Asia/Shanghai' },
-        { name: 'Tokyo', timeZone: 'Asia/Tokyo' }
-    ];
+        // Update clocks function
+        function updateClocks() {
+            const timeFormat = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const dateFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    const otherTimes = document.getElementById('other-times');
-    otherTimes.innerHTML = '';
+            const locations = {
+                'new-york': 'America/New_York',
+                'london': 'Europe/London',
+                'tokyo': 'Asia/Tokyo',
+                'sydney': 'Australia/Sydney'
+            };
 
-    cities.forEach(city => {
-        const cityTime = now.toLocaleTimeString('en-US', { timeZone: city.timeZone, timeStyle: 'short' });
-        const cityElement = document.createElement('div');
-        cityElement.className = 'time-box';
-        cityElement.innerHTML = `<strong>${city.name}</strong><br>${cityTime}`;
-        otherTimes.appendChild(cityElement);
-    });
-}
+            for (const [city, timezone] of Object.entries(locations)) {
+                try {
+                    const now = new Date().toLocaleString('en-US', { timeZone: timezone });
+                    const date = new Date(now);
+                    
+                    document.getElementById(`${city}-time`).textContent = 
+                        date.toLocaleTimeString('en-US', timeFormat);
+                    document.getElementById(`${city}-date`).textContent = 
+                        date.toLocaleDateString('en-US', dateFormat);
+                } catch (error) {
+                    console.error(`Error updating ${city} clock:`, error);
+                }
+            }
+        }
 
-updateTime();
-setInterval(updateTime, 1000);
-
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            updateClocks();
+            setInterval(updateClocks, 1000);
+        });
     </script>
 </body>
 </html>
